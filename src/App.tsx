@@ -3,9 +3,42 @@ import { Text } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
+import api from "./services/api";
 
 function App() {
-  const [textBox, SettextBox] = useState("False");
+  const toast = useToast();
+  const [textBox, SettextBox] = useState(false);
+  const [link, Setlink] = useState("");
+  const [boxVisibility, SetboxVisibility] = useState(false);
+
+  const onSubmit = (link: string) => {
+    if (!link) {
+      toast({
+        title: "Faltou o link",
+        description: "Cole o link no campo de busca!",
+        status: "warning",
+      });
+      return;
+    }
+    console.log(boxVisibility);
+    SetboxVisibility(!boxVisibility);
+    console.log(link);
+
+    // api
+    //   .post(
+    //     "/task",
+    //     {
+    //       description: task,
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   )
+    //   .then((res) => loadTasks());
+  };
 
   return (
     <>
@@ -35,19 +68,24 @@ function App() {
             borderColor="#7cd7cf"
             placeholder="Cole seu link do youtube aqui"
             size="md"
+            onChange={(e) => Setlink(e.target.value)}
           />
-          <Button colorScheme="teal" size="md">
+          <Button colorScheme="teal" size="md" onClick={() => onSubmit(link)}>
             Enviar
           </Button>
         </Box>
-        <Box
-          mt="100px"
-          p="12px"
-          borderRadius="10px"
-          bgColor="white"
-          w="50%"
-          h="50%"
-        ></Box>
+        {boxVisibility ? (
+          <Box
+            mt="100px"
+            p="12px"
+            borderRadius="10px"
+            bgColor="white"
+            w="50%"
+            h="50%"
+          ></Box>
+        ) : (
+          ""
+        )}
       </Box>
     </>
   );
