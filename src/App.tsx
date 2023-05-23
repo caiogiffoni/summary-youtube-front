@@ -70,38 +70,47 @@ function App() {
         display="flex"
         flexDirection="column"
         alignItems="center"
-        p="80px 0px 140px 0px"
+        p={["20px 0px 60px 0px", "60px 0px 1000px 0px", "80px 0px 140px 0px"]}
       >
-        <Text fontSize="4xl" color="#16c1c8">
+        <Text fontSize={["xl", "2xl", "4xl"]} color="#16c1c8">
           Youtube Summarizer
         </Text>
-        <Text fontSize="md" color="#16c1c8" p="20px 0px 30px 0px">
+        <Text
+          fontSize={["sm", "sm", "md"]}
+          color="#16c1c8"
+          p={["20px 20px 15px 20px", "20px 10px 30px 15px"]}
+        >
           Cole o link do video do Youtube no campo abaixo para obter o resumo
         </Text>
         <Box
           display="flex"
           justifyContent="center"
+          flexDirection={["column", "row"]}
           alignItems="center"
           gap="15px"
-          w="60%"
+          w={["80%", "70%", "60%"]}
         >
           <Input
             borderColor="#7cd7cf"
             placeholder="Cole seu link do youtube aqui"
-            size="md"
+            size={["sm", "sm", "md"]}
             onChange={(e) => Setlink(e.target.value)}
           />
-          <Button colorScheme="teal" size="md" onClick={() => onSubmit(link)}>
+          <Button
+            colorScheme="teal"
+            size={["sm", "sm", "md"]}
+            onClick={() => onSubmit(link)}
+          >
             Enviar
           </Button>
         </Box>
         {boxVisibility ? (
           <Box
             mt="100px"
-            p="35px 35px 60px 35px"
+            p={["20px 20px 30px 20px", "35px 35px 60px 35px"]}
             borderRadius="10px"
             bgColor="white"
-            w="60%"
+            w={["80%", "60%"]}
             minH="200px"
           >
             {summary ? (
