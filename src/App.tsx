@@ -35,6 +35,7 @@ function App() {
       });
       return;
     }
+    Setsummary("");
     SetboxVisibility(true);
     api
       .post(
@@ -46,6 +47,7 @@ function App() {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_TOKEN_HASH}`,
           },
+          timeout: 60 * 7 * 1000,
         }
       )
       .then((res) => Setsummary(res.data[0]))
@@ -55,6 +57,7 @@ function App() {
           description: "Favor verificar o link inserido!",
           status: "warning",
         });
+        SetboxVisibility(false);
       });
   };
 
