@@ -1,44 +1,41 @@
 import { useState } from "react";
-import { Text } from "@chakra-ui/react";
+import { Stack, Text } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import api from "./services/api";
+import { Skeleton } from "@chakra-ui/react";
 
 function App() {
   const toast = useToast();
-  const [textBox, SettextBox] = useState(false);
   const [link, Setlink] = useState("");
   const [boxVisibility, SetboxVisibility] = useState(false);
-  const [summary, Setsummary] = useState("");
+  const [summary, Setsummary] = useState<string>("");
 
   const onSubmit = (link: string) => {
-    // if (!link) {
-    //   toast({
-    //     title: "Faltou o link",
-    //     description: "Favor colar o link no campo de busca!",
-    //     status: "warning",
-    //   });
-    //   return;
-    // }
-    // if (
-    //   // eslint-disable-next-line no-useless-escape
-    //   !/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(
-    //     link
-    //   )
-    // ) {
-    //   toast({
-    //     title: "Link inválido",
-    //     description: "Favor colar um link válido no campo de busca!",
-    //     status: "warning",
-    //   });
-    //   return;
-    // }
+    if (!link) {
+      toast({
+        title: "Faltou o link",
+        description: "Favor colar o link no campo de busca!",
+        status: "warning",
+      });
+      return;
+    }
+    if (
+      // eslint-disable-next-line no-useless-escape
+      !/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(
+        link
+      )
+    ) {
+      toast({
+        title: "Link inválido",
+        description: "Favor colar um link válido no campo de busca!",
+        status: "warning",
+      });
+      return;
+    }
     SetboxVisibility(true);
-    console.log("oi");
-    console.log(process.env.REACT_APP_NAME);
-    console.log(import.meta.env.VITE_HI);
     api
       .post(
         "/summarize",
@@ -46,9 +43,9 @@ function App() {
           link,
         },
         {
-          // headers: {
-          //   Authorization: `Bearer ${token}`,
-          // },
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TOKEN_HASH}`,
+          },
         }
       )
       .then((res) => Setsummary(res.data[0]))
@@ -98,13 +95,23 @@ function App() {
         {boxVisibility ? (
           <Box
             mt="100px"
-            p="15px 15px 40px 15px"
+            p="35px 35px 60px 35px"
             borderRadius="10px"
             bgColor="white"
             w="60%"
             minH="200px"
           >
-            <Text>{summary}</Text>
+            {summary ? (
+              <Text>{summary}</Text>
+            ) : (
+              <Stack>
+                <Skeleton height="20px" />
+                <Skeleton height="20px" />
+                <Skeleton height="20px" />
+                <Skeleton height="20px" />
+                <Skeleton height="20px" />
+              </Stack>
+            )}
           </Box>
         ) : (
           ""
