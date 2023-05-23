@@ -11,45 +11,63 @@ function App() {
   const [textBox, SettextBox] = useState(false);
   const [link, Setlink] = useState("");
   const [boxVisibility, SetboxVisibility] = useState(false);
+  const [summary, Setsummary] = useState("");
 
   const onSubmit = (link: string) => {
     if (!link) {
       toast({
         title: "Faltou o link",
-        description: "Cole o link no campo de busca!",
+        description: "Favor colar o link no campo de busca!",
         status: "warning",
       });
       return;
     }
-    console.log(boxVisibility);
-    SetboxVisibility(!boxVisibility);
-    console.log(link);
-
-    // api
-    //   .post(
-    //     "/task",
-    //     {
-    //       description: task,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     }
-    //   )
-    //   .then((res) => loadTasks());
+    if (
+      // eslint-disable-next-line no-useless-escape
+      !/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(
+        link
+      )
+    ) {
+      toast({
+        title: "Link inválido",
+        description: "Favor colar um link válido no campo de busca!",
+        status: "warning",
+      });
+      return;
+    }
+    SetboxVisibility(true);
+    api
+      .post(
+        "/summarize",
+        {
+          link,
+        },
+        {
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
+        }
+      )
+      .then((res) => Setsummary(res.data[0]))
+      .catch((e) => {
+        toast({
+          title: "Link inválido",
+          description: "Favor verificar o link inserido!",
+          status: "warning",
+        });
+      });
   };
 
   return (
     <>
       <Box
         w="100vw"
-        h="100vh"
+        minH="100vh"
         bgColor="#e1ecd6"
         display="flex"
         flexDirection="column"
         alignItems="center"
-        pt="100px"
+        p="80px 0px 140px 0px"
       >
         <Text fontSize="4xl" color="#16c1c8">
           Youtube Summarizer
@@ -77,12 +95,14 @@ function App() {
         {boxVisibility ? (
           <Box
             mt="100px"
-            p="12px"
+            p="15px 15px 40px 15px"
             borderRadius="10px"
             bgColor="white"
-            w="50%"
-            h="50%"
-          ></Box>
+            w="60%"
+            minH="200px"
+          >
+            <Text>{summary}</Text>
+          </Box>
         ) : (
           ""
         )}
