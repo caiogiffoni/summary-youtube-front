@@ -14,28 +14,31 @@ function App() {
   const [summary, Setsummary] = useState("");
 
   const onSubmit = (link: string) => {
-    if (!link) {
-      toast({
-        title: "Faltou o link",
-        description: "Favor colar o link no campo de busca!",
-        status: "warning",
-      });
-      return;
-    }
-    if (
-      // eslint-disable-next-line no-useless-escape
-      !/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(
-        link
-      )
-    ) {
-      toast({
-        title: "Link inválido",
-        description: "Favor colar um link válido no campo de busca!",
-        status: "warning",
-      });
-      return;
-    }
+    // if (!link) {
+    //   toast({
+    //     title: "Faltou o link",
+    //     description: "Favor colar o link no campo de busca!",
+    //     status: "warning",
+    //   });
+    //   return;
+    // }
+    // if (
+    //   // eslint-disable-next-line no-useless-escape
+    //   !/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(
+    //     link
+    //   )
+    // ) {
+    //   toast({
+    //     title: "Link inválido",
+    //     description: "Favor colar um link válido no campo de busca!",
+    //     status: "warning",
+    //   });
+    //   return;
+    // }
     SetboxVisibility(true);
+    console.log("oi");
+    console.log(process.env.REACT_APP_NAME);
+    console.log(import.meta.env.VITE_HI);
     api
       .post(
         "/summarize",
