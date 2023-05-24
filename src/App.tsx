@@ -50,7 +50,7 @@ function App() {
           timeout: 60 * 7 * 1000,
         }
       )
-      .then((res) => Setsummary(res.data[0]))
+      .then((res) => Setsummary(res.data["summary"]))
       .catch(() => {
         toast({
           title: "Link inválido",
