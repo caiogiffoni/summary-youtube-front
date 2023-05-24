@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Stack, Text } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import api from "./services/api";
 import { Skeleton } from "@chakra-ui/react";
@@ -51,7 +51,7 @@ function App() {
         }
       )
       .then((res) => Setsummary(res.data[0]))
-      .catch((e) => {
+      .catch(() => {
         toast({
           title: "Link inválido",
           description: "Favor verificar o link inserido!",
