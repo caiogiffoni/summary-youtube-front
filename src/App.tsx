@@ -66,7 +66,7 @@ function App() {
       <Box
         w="100vw"
         minH="100vh"
-        bgColor="#dfd8d8"
+        bgColor="#e7e7df"
         display="flex"
         flexDirection="column"
         alignItems="center"
