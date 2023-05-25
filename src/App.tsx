@@ -53,8 +53,8 @@ function App() {
       .then((res) => Setsummary(res.data["summary"]))
       .catch(() => {
         toast({
-          title: "Link inválido",
-          description: "Favor verificar o link inserido!",
+          title: "Sistema sobrecarregado",
+          description: "Muitas requisições seguidas! Tente mais tarde.",
           status: "warning",
         });
         SetboxVisibility(false);
