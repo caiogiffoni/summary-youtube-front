@@ -66,18 +66,18 @@ function App() {
       <Box
         w="100vw"
         minH="100vh"
-        bgColor="#e1ecd6"
+        bgColor="#fcfcfc"
         display="flex"
         flexDirection="column"
         alignItems="center"
-        p={["20px 0px 60px 0px", "60px 0px 1000px 0px", "80px 0px 140px 0px"]}
+        p={["30px 0px 60px 0px", "60px 0px 1000px 0px", "80px 0px 140px 0px"]}
       >
-        <Text fontSize={["xl", "2xl", "4xl"]} color="#16c1c8">
+        <Text fontSize={["xl", "2xl", "4xl"]} color="#318510">
           Youtube Summarizer
         </Text>
         <Text
           fontSize={["sm", "sm", "md"]}
-          color="#16c1c8"
+          color="#318510"
           p={["20px 20px 15px 20px", "20px 10px 30px 15px"]}
         >
           Cole o link do video do Youtube no campo abaixo para obter o resumo
@@ -91,13 +91,15 @@ function App() {
           w={["80%", "70%", "60%"]}
         >
           <Input
-            borderColor="#7cd7cf"
+            borderColor="#318510"
             placeholder="Cole seu link do youtube aqui"
             size={["sm", "sm", "md"]}
             onChange={(e) => Setlink(e.target.value)}
           />
           <Button
-            colorScheme="teal"
+            // colorScheme="teal"
+            color="white"
+            bgColor="#318510"
             size={["sm", "sm", "md"]}
             onClick={() => onSubmit(link)}
           >
